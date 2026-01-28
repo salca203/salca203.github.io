@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Meine Webseite</title>
+    <title>Meine Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .box {
+            margin-top: 20vh;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #38bdf8;
+        }
+
+        button:hover {
+            background: #0ea5e9;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Hallo Welt</h1>
-<p>Das ist meine erste Webseite.</p>
-
-<button onclick="alert('Button wurde geklickt!')">Klick mich</button>
+    <div class="box">
+        <h1>Willkommen auf meiner Website</h1>
+        <p>Diese Seite läuft über GitHub Pages</p>
+        <button onclick="alert('Hallo Claas 😎')">Klick mich</button>
+    </div>
 
 </body>
 </html>
