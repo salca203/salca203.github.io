@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cozy Mini Hub</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+  <h1>Cozy Mini Hub</h1>
+
+  <div class="topControls">
+    <label>
+      Dark Mode
+      <input type="checkbox" id="themeToggle">
+    </label>
+
+    <input type="color" id="colorPicker">
+  </div>
+</header>
+
+<main class="container">
+
+<section class="card">
+<h2>Nachricht senden</h2>
+
+<form id="contactForm">
+<input name="from_name" placeholder="Dein Name" required>
+<input name="reply_to" type="email" placeholder="Deine Email" required>
+<textarea name="message" placeholder="Nachricht" required></textarea>
+<button type="submit">Senden</button>
+<div id="status"></div>
+</form>
+
+</section>
+
+<section class="card">
+
+<h2>Tools und Spiele</h2>
+
+<div class="grid">
+
+<div class="box">
+<h3>Snake</h3>
+<canvas id="snakeCanvas" width="300" height="300"></canvas>
+<button id="snakeReset">Neu starten</button>
+</div>
+
+<div class="box">
+<h3>Counter</h3>
+<div class="row">
+<button id="minus">Minus</button>
+<span id="count">0</span>
+<button id="plus">Plus</button>
+</div>
+<button id="counterReset">Reset</button>
+</div>
+
+<div class="box">
+<h3>Stoppuhr</h3>
+<div id="stopwatch">00:00:00</div>
+<button id="swStart">Start</button>
+<button id="swStop">Stop</button>
+<button id="swReset">Reset</button>
+</div>
+
+<div class="box">
+<h3>Würfel</h3>
+<div id="dice">1</div>
+<button id="roll">Würfeln</button>
+</div>
+
+<div class="box">
+<h3>Notizen</h3>
+<textarea id="noteBox" placeholder="Deine Notiz"></textarea>
+<button id="saveNote">Speichern</button>
+</div>
+
+<div class="box">
+<h3>Pomodoro Timer</h3>
+<div id="pomodoro">25:00</div>
+<button id="pomStart">Start</button>
+<button id="pomStop">Stop</button>
+<button id="pomReset">Reset</button>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+<p>Made by Claas</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
