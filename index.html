@@ -3,102 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cozy Mini Hub</title>
+<title>Pro Tools Hub</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 
 <body>
 
-<header class="header">
-  <h1>Cozy Mini Hub</h1>
-
-  <div class="topControls">
-    <label>
-      Dark Mode
-      <input type="checkbox" id="themeToggle">
-    </label>
-
-    <input type="color" id="colorPicker">
+<nav class="nav">
+  <div class="navTitle">ProTools Hub</div>
+  <div class="navRight">
+    <button id="themeBtn">Dark Mode</button>
+    <input type="color" id="accentPicker">
   </div>
+</nav>
+
+<header class="hero">
+  <h1>Dein Profi Tool und Spiel Portal</h1>
+  <p>Spiele • Timer • Helfer • Kontakt</p>
 </header>
 
-<main class="container">
+<main class="main">
 
-<section class="card">
-<h2>Nachricht senden</h2>
+  <section class="card fullWidth">
 
-<form id="contactForm">
-<input name="from_name" placeholder="Dein Name" required>
-<input name="reply_to" type="email" placeholder="Deine Email" required>
-<textarea name="message" placeholder="Nachricht" required></textarea>
-<button type="submit">Senden</button>
-<div id="status"></div>
-</form>
+    <h2>Kontakt</h2>
 
-</section>
+    <form id="contactForm">
+      <div class="formGroup">
+        <input name="from_name" placeholder="Name" required>
+        <input name="reply_to" type="email" placeholder="Email" required>
+      </div>
+      <textarea name="message" placeholder="Nachricht" required></textarea>
+      <button type="submit" class="btn primary">Senden</button>
+      <div id="mailStatus"></div>
+    </form>
 
-<section class="card">
+  </section>
 
-<h2>Tools und Spiele</h2>
+  <section class="grid">
 
-<div class="grid">
+    <div class="card">
+      <h3>Snake</h3>
+      <canvas id="snakeCanvas" width="300" height="300"></canvas>
+      <div class="btnGroup">
+        <button id="snakeStart" class="btn">Start</button>
+        <button id="snakeReset" class="btn">Neu</button>
+      </div>
+    </div>
 
-<div class="box">
-<h3>Snake</h3>
-<canvas id="snakeCanvas" width="300" height="300"></canvas>
-<button id="snakeReset">Neu starten</button>
-</div>
+    <div class="card">
+      <h3>Breakout</h3>
+      <canvas id="breakoutCanvas" width="300" height="200"></canvas>
+      <button id="breakoutStart" class="btn">Start</button>
+    </div>
 
-<div class="box">
-<h3>Counter</h3>
-<div class="row">
-<button id="minus">Minus</button>
-<span id="count">0</span>
-<button id="plus">Plus</button>
-</div>
-<button id="counterReset">Reset</button>
-</div>
+    <div class="card">
+      <h3>Pong</h3>
+      <canvas id="pongCanvas" width="300" height="200"></canvas>
+      <button id="pongStart" class="btn">Start</button>
+    </div>
 
-<div class="box">
-<h3>Stoppuhr</h3>
-<div id="stopwatch">00:00:00</div>
-<button id="swStart">Start</button>
-<button id="swStop">Stop</button>
-<button id="swReset">Reset</button>
-</div>
+    <div class="card">
+      <h3>Reaktionstest</h3>
+      <div id="reactionBox" class="reactionBox">Start</div>
+      <div id="reactionResult"></div>
+    </div>
 
-<div class="box">
-<h3>Würfel</h3>
-<div id="dice">1</div>
-<button id="roll">Würfeln</button>
-</div>
+    <div class="card">
+      <h3>Counter</h3>
+      <div class="counter">
+        <button id="cMinus" class="btn">Minus</button>
+        <span id="counter">0</span>
+        <button id="cPlus" class="btn">Plus</button>
+      </div>
+      <button id="cReset" class="btn">Reset</button>
+    </div>
 
-<div class="box">
-<h3>Notizen</h3>
-<textarea id="noteBox" placeholder="Deine Notiz"></textarea>
-<button id="saveNote">Speichern</button>
-</div>
+    <div class="card">
+      <h3>Stoppuhr</h3>
+      <div id="stopwatch">00:00:00</div>
+      <div class="btnGroup">
+        <button id="swStart" class="btn">Start</button>
+        <button id="swStop" class="btn">Stop</button>
+        <button id="swReset" class="btn">Reset</button>
+      </div>
+    </div>
 
-<div class="box">
-<h3>Pomodoro Timer</h3>
-<div id="pomodoro">25:00</div>
-<button id="pomStart">Start</button>
-<button id="pomStop">Stop</button>
-<button id="pomReset">Reset</button>
-</div>
+    <div class="card">
+      <h3>Timer</h3>
+      <input id="timerInput" type="number" placeholder="Minuten">
+      <div id="timerDisplay">00:00</div>
+      <div class="btnGroup">
+        <button id="timerStart" class="btn">Start</button>
+        <button id="timerStop" class="btn">Stop</button>
+        <button id="timerReset" class="btn">Reset</button>
+      </div>
+    </div>
 
-</div>
+    <div class="card">
+      <h3>Notizen</h3>
+      <textarea id="notes" placeholder="Deine Notiz"></textarea>
+      <button id="saveNotes" class="btn">Speichern</button>
+    </div>
 
-</section>
+  </section>
 
 </main>
 
-<footer>
-<p>Made by Claas</p>
-</footer>
+<footer class="footer">Orange Schwarz Hub by Claas</footer>
 
 <script src="script.js"></script>
-
 </body>
 </html>
