@@ -1,37 +1,37 @@
-Cozy Mini Hub
+Pro Tools Hub
 
-Enthält Tools, Spiele, Dark Mode, Color Picker, Snake, Pomodoro, Stoppuhr, Counter und Email Formular.
+Enthaltet:
+- Kontaktformular per EmailJS
+- Snake Spiel
+- Breakout Canvas Platzhalter
+- Pong Canvas Platzhalter
+- Reaktionstest
+- Counter
+- Stoppuhr
+- Timer mit frei einstellbarer Minutenanzahl
+- Lokale Notizen
 
-Email Funktion einrichten
+Wichtige Werte die bereits eingetragen sind:
+Public Key: 5yYH_2gvEYSWG59WaUrap
+Service ID: service_drsx4ic
+Template ID: template_2rawiaj
 
-1. Gehe auf https://www.emailjs.com
-2. Erstelle einen Account
-3. Verbinde deinen Gmail Account
-4. Erstelle ein Email Template mit Feldern:
+EmailJS einrichtung:
+1. Konto bei emailjs.com erstellen
+2. Service verbinden
+3. Template anlegen mit den Feldern:
+   - from_name
+   - reply_to
+   - message
+4. Den Public Key findest du in deiner EmailJS Console. Der Public Key ist in script.js bereits eingesetzt.
+5. Falls du andere Werte nutzen willst ersetze die Werte in script.js
 
-from_name  
-reply_to  
-message  
+Sicherheit:
+- Der private Key wird nicht in die Client Dateien gesetzt. Der private Key bleibt geheim.
 
-5. Kopiere User ID, Service ID und Template ID
-6. Trage sie in script.js ein:
-
-YOUR_USER_ID  
-YOUR_SERVICE_ID  
-YOUR_TEMPLATE_ID  
-
-Speichern und fertig.
-
-GitHub Pages Setup
-
-1. Neues Repository erstellen
-2. Alle Dateien hochladen
-3. Settings öffnen
-4. Pages aktivieren
-5. Branch main auswählen
-6. Root Ordner wählen
-7. Speichern
-
-Nach wenigen Sekunden ist deine Seite online.
+Deploy:
+- Alle Dateien in ein Verzeichnis legen
+- Lokal testen oder auf GitHub Pages hochladen
+- Auf GitHub Pages eventuell CORS beachten falls EmailJS Probleme macht
 
 Fertig
