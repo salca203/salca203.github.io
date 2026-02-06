@@ -37,6 +37,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: background 0.3s ease;
     }
 
     .card {
@@ -56,8 +57,9 @@
     }
 
     h1 {
-      font-size: 26px;
       margin: 0;
+      font-size: 26px;
+      font-weight: 600;
     }
 
     .toggle {
@@ -66,8 +68,7 @@
     }
 
     p {
-      margin-top: 8px;
-      margin-bottom: 32px;
+      margin: 8px 0 32px;
       color: var(--sub);
       font-size: 15px;
     }
@@ -98,22 +99,14 @@
       border: none;
       border-radius: 14px;
       font-size: 15px;
+      font-weight: 500;
       cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
-    .msg {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 15px;
-      display: none;
-    }
-
-    .success {
-      color: var(--accent);
-    }
-
-    .error {
-      color: #ff3b30;
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
   </style>
 </head>
@@ -128,60 +121,24 @@
 
     <p>Schreib mir kurz was du loswerden willst</p>
 
-    <form id="form">
+    <form
+      action="https://formspree.io/f/xdalooev"
+      method="POST"
+    >
       <input type="email" name="email" placeholder="Deine Email" required>
       <textarea name="message" placeholder="Deine Nachricht" required></textarea>
-      <button id="btn" type="submit">Senden</button>
+      <button type="submit">Senden</button>
     </form>
-
-    <div class="msg success" id="success">
-      Danke deine Nachricht wurde gesendet 😊
-    </div>
-
-    <div class="msg error" id="error">
-      Senden fehlgeschlagen bitte später nochmal versuchen
-    </div>
   </div>
 
   <script>
-    const body = document.body;
     const toggle = document.getElementById("toggle");
-    const form = document.getElementById("form");
-    const success = document.getElementById("success");
-    const error = document.getElementById("error");
-    const btn = document.getElementById("btn");
+    const body = document.body;
 
     toggle.onclick = () => {
       body.classList.toggle("dark");
       toggle.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
     };
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      success.style.display = "none";
-      error.style.display = "none";
-      btn.textContent = "Senden ...";
-
-      try {
-        const res = await fetch("https://formspree.io/f/xdalooev", {
-          method: "POST",
-          body: new FormData(form),
-          headers: { "Accept": "application/json" }
-        });
-
-        if (res.ok) {
-          form.reset();
-          success.style.display = "block";
-        } else {
-          error.style.display = "block";
-        }
-      } catch {
-        error.style.display = "block";
-      }
-
-      btn.textContent = "Senden";
-    });
   </script>
 
 </body>
