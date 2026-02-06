@@ -37,7 +37,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .card {
@@ -47,7 +46,6 @@
       padding: 32px;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-      transition: background 0.3s ease;
     }
 
     .top {
@@ -60,13 +58,11 @@
     h1 {
       font-size: 26px;
       margin: 0;
-      font-weight: 600;
     }
 
     .toggle {
       cursor: pointer;
       font-size: 20px;
-      user-select: none;
     }
 
     p {
@@ -87,12 +83,6 @@
       font-size: 15px;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: var(--accent);
     }
 
     textarea {
@@ -108,80 +98,89 @@
       border: none;
       border-radius: 14px;
       font-size: 15px;
-      font-weight: 500;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-
-    button:active {
-      transform: translateY(0);
-      box-shadow: none;
-      opacity: 0.9;
+    .msg {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 15px;
+      display: none;
     }
 
     .success {
-      display: none;
-      text-align: center;
-      font-size: 16px;
       color: var(--accent);
-      margin-top: 12px;
+    }
+
+    .error {
+      color: #ff3b30;
     }
   </style>
 </head>
 
-<body class="light">
+<body>
 
   <div class="card">
     <div class="top">
       <h1>Nachricht senden</h1>
-      <div class="toggle" id="modeToggle">🌙</div>
+      <div class="toggle" id="toggle">🌙</div>
     </div>
 
     <p>Schreib mir kurz was du loswerden willst</p>
 
-    <form id="contactForm">
+    <form id="form">
       <input type="email" name="email" placeholder="Deine Email" required>
       <textarea name="message" placeholder="Deine Nachricht" required></textarea>
-      <button type="submit">Senden</button>
+      <button id="btn" type="submit">Senden</button>
     </form>
 
-    <div class="success" id="successMsg">
-      Danke für deine Nachricht 😊
+    <div class="msg success" id="success">
+      Danke deine Nachricht wurde gesendet 😊
+    </div>
+
+    <div class="msg error" id="error">
+      Senden fehlgeschlagen bitte später nochmal versuchen
     </div>
   </div>
 
   <script>
-    const toggle = document.getElementById("modeToggle");
     const body = document.body;
+    const toggle = document.getElementById("toggle");
+    const form = document.getElementById("form");
+    const success = document.getElementById("success");
+    const error = document.getElementById("error");
+    const btn = document.getElementById("btn");
 
     toggle.onclick = () => {
       body.classList.toggle("dark");
       toggle.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
     };
 
-    const form = document.getElementById("contactForm");
-    const success = document.getElementById("successMsg");
-
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const data = new FormData(form);
+      success.style.display = "none";
+      error.style.display = "none";
+      btn.textContent = "Senden ...";
 
-      const res = await fetch("https://formspree.io/f/xdalooev", {
-        method: "POST",
-        body: data,
-        headers: { "Accept": "application/json" }
-      });
+      try {
+        const res = await fetch("https://formspree.io/f/xdalooev", {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        });
 
-      if (res.ok) {
-        form.reset();
-        success.style.display = "block";
+        if (res.ok) {
+          form.reset();
+          success.style.display = "block";
+        } else {
+          error.style.display = "block";
+        }
+      } catch {
+        error.style.display = "block";
       }
+
+      btn.textContent = "Senden";
     });
   </script>
 
