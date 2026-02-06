@@ -6,6 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root {
+      --bg: #f5f5f7;
+      --text: #1d1d1f;
+      --sub: #6e6e73;
+      --line: #d2d2d7;
+      --accent: #0071e3;
+      --card: #ffffff;
+    }
+
+    body.dark {
+      --bg: #0f0f12;
+      --text: #ffffff;
+      --sub: #a1a1aa;
+      --line: #2a2a2f;
+      --accent: #4ea1ff;
+      --card: #16161a;
+    }
+
     * {
       box-sizing: border-box;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -14,28 +32,47 @@
     body {
       margin: 0;
       min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #0f0f12;
-      color: #ffffff;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    .wrapper {
+    .card {
       width: 100%;
       max-width: 420px;
+      background: var(--card);
       padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      transition: background 0.3s ease;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
     h1 {
-      margin-bottom: 8px;
-      font-size: 28px;
+      font-size: 26px;
+      margin: 0;
       font-weight: 600;
     }
 
+    .toggle {
+      cursor: pointer;
+      font-size: 20px;
+      user-select: none;
+    }
+
     p {
+      margin-top: 8px;
       margin-bottom: 32px;
-      color: #b5b5c0;
+      color: var(--sub);
       font-size: 15px;
     }
 
@@ -44,22 +81,18 @@
       width: 100%;
       background: transparent;
       border: none;
-      border-bottom: 1px solid #3a3a44;
+      border-bottom: 1px solid var(--line);
       padding: 12px 4px;
       margin-bottom: 28px;
-      color: white;
       font-size: 15px;
+      color: var(--text);
       outline: none;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #6f6f7a;
+      transition: border-color 0.2s ease;
     }
 
     input:focus,
     textarea:focus {
-      border-color: #ffffff;
+      border-color: var(--accent);
     }
 
     textarea {
@@ -70,57 +103,87 @@
     button {
       width: 100%;
       padding: 14px;
-      background: white;
-      color: black;
+      background: var(--accent);
+      color: white;
       border: none;
+      border-radius: 14px;
       font-size: 15px;
       font-weight: 500;
       cursor: pointer;
-      transition: opacity 0.2s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
 
     button:hover {
-      opacity: 0.85;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 
-    .footer {
-      margin-top: 24px;
+    button:active {
+      transform: translateY(0);
+      box-shadow: none;
+      opacity: 0.9;
+    }
+
+    .success {
+      display: none;
       text-align: center;
-      font-size: 13px;
-      color: #6f6f7a;
+      font-size: 16px;
+      color: var(--accent);
+      margin-top: 12px;
     }
   </style>
 </head>
 
-<body>
+<body class="light">
 
-  <div class="wrapper">
-    <h1>Nachricht senden</h1>
+  <div class="card">
+    <div class="top">
+      <h1>Nachricht senden</h1>
+      <div class="toggle" id="modeToggle">🌙</div>
+    </div>
+
     <p>Schreib mir kurz was du loswerden willst</p>
 
-    <form action="https://formspree.io/f/xdalooev" method="POST">
-
-      <input
-        type="email"
-        name="email"
-        placeholder="Deine Email"
-        required
-      >
-
-      <textarea
-        name="message"
-        placeholder="Deine Nachricht"
-        required
-      ></textarea>
-
+    <form id="contactForm">
+      <input type="email" name="email" placeholder="Deine Email" required>
+      <textarea name="message" placeholder="Deine Nachricht" required></textarea>
       <button type="submit">Senden</button>
-
     </form>
 
-    <div class="footer">
-      Antwort kommt per Email
+    <div class="success" id="successMsg">
+      Danke für deine Nachricht 😊
     </div>
   </div>
+
+  <script>
+    const toggle = document.getElementById("modeToggle");
+    const body = document.body;
+
+    toggle.onclick = () => {
+      body.classList.toggle("dark");
+      toggle.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+    };
+
+    const form = document.getElementById("contactForm");
+    const success = document.getElementById("successMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+
+      const res = await fetch("https://formspree.io/f/xdalooev", {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      });
+
+      if (res.ok) {
+        form.reset();
+        success.style.display = "block";
+      }
+    });
+  </script>
 
 </body>
 </html>
